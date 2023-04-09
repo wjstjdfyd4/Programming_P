@@ -1,8 +1,6 @@
+//#define DEBUG
 #include <iostream>
 #include <conio.h>
-
-const int BOARD_WIDTH = 10;
-const int BOARD_HEIGHT = 10;
 
 int print_title_screen()
 {
@@ -11,7 +9,12 @@ int print_title_screen()
     std::cout << "*                                        *" << std::endl;
     std::cout << "*              지렁이 게임               *" << std::endl;
     std::cout << "*             (Snake  Bite)              *" << std::endl;
+
+#ifdef DEBUG
+    std::cout << "*            - 디버그 모드 -             *" << std::endl;
+#else
     std::cout << "*                                        *" << std::endl;
+#endif  
     std::cout << "*   1. 게임 시작                         *" << std::endl;
     std::cout << "*   2. 게임 설명                         *" << std::endl;
     std::cout << "*   3. 게임 랭킹 보기                    *" << std::endl;
@@ -27,32 +30,22 @@ int print_introduction_screen()
     return 0;
 }
 
-int print_board()
+int print_game_board()
 {
-    std::cout << " ";
-    for (int i = 0; i < BOARD_WIDTH; ++i)
-    {
-        std::cout << "_";
-    }
-    std::cout << std::endl;
+    const int BOARD_WIDTH = 10;
+    const int BOARD_HEIGHT = 10;
 
-    for (int i = 0; i < BOARD_HEIGHT; ++i)
-    {
-        std::cout << "|";
-        for (int j = 0; j < BOARD_WIDTH; ++j)
-        {
-            std::cout << "#";
+    for (int i = 0; i < BOARD_HEIGHT + 2; i++) {
+        for (int j = 0; j < BOARD_WIDTH + 2; j++) {
+            if (i == 0 || i == BOARD_HEIGHT + 1 || j == 0 || j == BOARD_WIDTH + 1) {
+                std::cout << "#";
+            }
+            else {
+                std::cout << " ";
+            }
         }
-        std::cout << "|" << std::endl;
+        std::cout << std::endl;
     }
-
-    std::cout << " ";
-    for (int i = 0; i < BOARD_WIDTH; ++i)
-    {
-        std::cout << "_";
-    }
-    std::cout << std::endl;
-
     return 0;
 }
 
@@ -73,7 +66,7 @@ int main()
             switch(key_input)
             {
             case '1':
-                print_board();
+                print_game_board();
                 is_game_running = 0;
                 break;
             case '2':
@@ -113,3 +106,4 @@ int main()
     }
     return 0;
 } 
+
