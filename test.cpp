@@ -1,35 +1,58 @@
-//#define DEBUG
 #include <iostream>
 #include <conio.h>
 
-// game_state == 0 ¿œ∂ß
+const int BOARD_WIDTH = 10;
+const int BOARD_HEIGHT = 10;
+
 int print_title_screen()
 {
     std::cout << "******************************************" << std::endl;
     std::cout << "*                                        *" << std::endl;
     std::cout << "*                                        *" << std::endl;
-    std::cout << "*              ¡ˆ∑∑¿Ã ∞‘¿”               *" << std::endl;
+    std::cout << "*              ÏßÄÎ†ÅÏù¥ Í≤åÏûÑ               *" << std::endl;
     std::cout << "*             (Snake  Bite)              *" << std::endl;
-
-#ifdef DEBUG
-    std::cout << "*            - µπˆ±◊ ∏µÂ -             *" << std::endl;
-#else
     std::cout << "*                                        *" << std::endl;
-#endif  
-    std::cout << "*   1. ∞‘¿” Ω√¿€                         *" << std::endl;
-    std::cout << "*   2. ∞‘¿” º≥∏Ì                         *" << std::endl;
-    std::cout << "*   3. ∞‘¿” ∑©≈∑ ∫∏±‚                    *" << std::endl;
-    std::cout << "*   4. ∞‘¿” ¡æ∑· (esc)                   *" << std::endl;
+    std::cout << "*   1. Í≤åÏûÑ ÏãúÏûë                         *" << std::endl;
+    std::cout << "*   2. Í≤åÏûÑ ÏÑ§Î™Ö                         *" << std::endl;
+    std::cout << "*   3. Í≤åÏûÑ Îû≠ÌÇπ Î≥¥Í∏∞                    *" << std::endl;
+    std::cout << "*   4. Í≤åÏûÑ Ï¢ÖÎ£å (esc)                   *" << std::endl;
     std::cout << "******************************************" << std::endl;
 
     return 0;
 }
 
-// game_state == 2 ¿œ∂ß
 int print_introduction_screen()
 {
-    std::cout << "******************************************" << std::endl;
-    std::cout << "≈∏¿Ã∆≤»≠∏È¿∏∑Œ µπæ∆∞•±Óø‰? (Y/N)" << std::endl;
+    std::cout << "ÌÉÄÏù¥ÌãÄÌôîÎ©¥ÏúºÎ°ú ÎèåÏïÑÍ∞àÍπåÏöî? (Y/N)" << std::endl;
+    return 0;
+}
+
+int print_board()
+{
+    std::cout << " ";
+    for (int i = 0; i < BOARD_WIDTH; ++i)
+    {
+        std::cout << "_";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < BOARD_HEIGHT; ++i)
+    {
+        std::cout << "|";
+        for (int j = 0; j < BOARD_WIDTH; ++j)
+        {
+            std::cout << "#";
+        }
+        std::cout << "|" << std::endl;
+    }
+
+    std::cout << " ";
+    for (int i = 0; i < BOARD_WIDTH; ++i)
+    {
+        std::cout << "_";
+    }
+    std::cout << std::endl;
+
     return 0;
 }
 
@@ -40,16 +63,19 @@ int main()
     int is_game_running = 1;
 
     while (is_game_running)
-    {
+    {   
         char key_input = '0';
         switch (game_state)
         {
         case 0:
             print_title_screen();
             key_input = _getch();
-            switch (key_input)
+            switch(key_input)
             {
             case '1':
+                std::cout << "^^" << std::endl;
+                print_board();
+                is_game_running = 0;
                 break;
             case '2':
                 game_state = 2;
@@ -57,8 +83,6 @@ int main()
             case '3':
                 break;
             case '4':
-                is_game_running = 0;
-                break;
             case 27:
                 is_game_running = 0;
                 break;
@@ -72,21 +96,21 @@ int main()
             switch (key_input)
             {
             case 'y':
+            case 'Y':
                 game_state = 0;
                 break;
             case 'n':
+            case 'N':
+                is_game_running = 0;
                 break;
             default:
                 break;
             }
             break;
-
+        
         default:
             break;
-        }
-
-
+        }     
     }
-
     return 0;
-}
+} 
