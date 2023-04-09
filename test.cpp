@@ -73,7 +73,6 @@ int main()
             switch(key_input)
             {
             case '1':
-                std::cout << "^^" << std::endl;
                 print_board();
                 is_game_running = 0;
                 break;
